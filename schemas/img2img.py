@@ -208,6 +208,7 @@ IMG2IMG_SCHEMA = {
     'mask': {
         'type': str,
         'required': False
+        'default': 'None'
     },
     'mask_blur_x': {
         'type': int,
