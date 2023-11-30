@@ -207,7 +207,7 @@ IMG2IMG_SCHEMA = {
     # Setting this as an empty string by default causes the API call to fail
     'mask': {
         'type': str,
-        'required': False
+        'required': False,
         'default': 'None'
     },
     'mask_blur_x': {
