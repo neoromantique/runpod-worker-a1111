@@ -77,6 +77,7 @@ def validate_payload(job):
     method = job['input']['api']['method']
     endpoint = job['input']['api']['endpoint']
     payload = job['input']['payload']
+    metadata = job['input']['metadata']
     validated_input = payload
 
     if endpoint == 'v1/sync':
@@ -96,7 +97,7 @@ def validate_payload(job):
         validated_input = validate(payload, INTERROGATE_SCHEMA)
 
     # Verify that validation is not the culprit for the bug
-    return endpoint, job['input']['api']['method'], payload
+    return endpoint, job['input']['api']['method'], payload, metadata
     #return endpoint, job['input']['api']['method'], validated_input
 
 
@@ -182,7 +183,7 @@ def handler(job):
             'error': '\n'.join(validated_api['errors'])
         }
 
-    endpoint, method, validated_payload = validate_payload(job)
+    endpoint, method, validated_payload, metadata = validate_payload(job)
 
     if 'errors' in validated_payload:
         return {
@@ -207,6 +208,7 @@ def handler(job):
             response = send_post_request(endpoint, payload)
 
         resp_json = response.json()
+        resp_json['metadata'] = metadata
 
         if response.status_code == 200:
             return resp_json
