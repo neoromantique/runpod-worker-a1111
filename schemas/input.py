@@ -9,6 +9,7 @@ INPUT_SCHEMA = {
     },
     'metadata': {
         'type': dict,
+        'default': {},
         'required': False
     }
 }
