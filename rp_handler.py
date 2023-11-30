@@ -77,7 +77,7 @@ def validate_payload(job):
     method = job['input']['api']['method']
     endpoint = job['input']['api']['endpoint']
     payload = job['input']['payload']
-    metadata = job['input']['metadata']
+    metadata = job['input'].get('metadata', {})
     validated_input = payload
 
     if endpoint == 'v1/sync':
