@@ -95,7 +95,9 @@ def validate_payload(job):
         logger.info(f'Validating /{endpoint} payload', job['id'])
         validated_input = validate(payload, INTERROGATE_SCHEMA)
 
-    return endpoint, job['input']['api']['method'], validated_input
+    # Verify that validation is not the culprit for the bug
+    return endpoint, job['input']['api']['method'], payload
+    #return endpoint, job['input']['api']['method'], validated_input
 
 
 def download(job):
